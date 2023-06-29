@@ -1,0 +1,16 @@
+{
+    "private": false,
+    "name": "@antchain/xbuilders",
+    "version": "1.1.1",
+    "scripts": {
+        "compile": "myfish compile"
+    },
+    "dependencies": {
+        "@antchain/mysolidity": "1.2.0"
+    },
+    "devDependencies": {
+        "@antchain/myfish": "1.2.0",
+        "prettier": "^2.8.8",
+        "prettier-plugin-solidity": "^1.1.3"
+    }
+}

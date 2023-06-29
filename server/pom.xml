@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.11</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.antgroup.antchain</groupId>
+    <artifactId>xbuilders-server</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>xbuilders-server</name>
+    <description>A demo for A-Pocket NFT issuer</description>
+    <properties>
+        <java.version>1.8</java.version>
+        <redisson.version>3.17.5</redisson.version>
+        <bouncycastle.version>1.66</bouncycastle.version>
+        <alipay-sdk.version>4.9.9</alipay-sdk.version>
+        <mypocket-api.version>1.3.15</mypocket-api.version>
+        <chaininsight-api.version>1.3.1</chaininsight-api.version>
+        <mychain-sdk.version>0.10.2.24.9</mychain-sdk.version>
+        <baas-rest.version>2.16.5-SNAPSHOT</baas-rest.version>
+        <baas.version>1.2.2-SNAPSHOT</baas.version>
+        <baas-solution.version>1.0.7-SNAPSHOT</baas-solution.version>
+        <mybatis.version>2.1.4</mybatis.version>
+        <mysql.version>5.1.49</mysql.version>
+        <druid.version>1.2.17</druid.version>
+        <spring-retry.version>1.2.5.RELEASE</spring-retry.version>
+    </properties>
+    <dependencies>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.21.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>${spring-retry.version}</version>
+        </dependency>
+
+        <!-- Commons -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+        <!-- database -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.common</groupId>
+            <artifactId>google-collect</artifactId>
+            <version>0.5</version>
+        </dependency>
+
+        <!-- AntChain -->
+        <dependency>
+            <groupId>com.alipay.mychainx</groupId>
+            <artifactId>mychainx-sdk-java-all</artifactId>
+            <version>0.10.2.24.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.antfinancial.antchain.baas.tool</groupId>
+            <artifactId>rest-client</artifactId>
+            <version>2.16.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mychainx-sdk</artifactId>
+                    <groupId>com.alipay.mychainx</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alipay.mychain.baas</groupId>-->
+<!--            <artifactId>bsp-endpoint</artifactId>-->
+<!--            <version>1.0.7-SNAPSHOT</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.alipay.mychain.baas</groupId>-->
+<!--            <artifactId>baas-workspace-lib</artifactId>-->
+<!--            <version>1.2.2-SNAPSHOT</version>-->
+<!--        </dependency>-->
+
+        <!-- Antchain open -->
+        <dependency>
+            <groupId>com.antgroup.antchain.openapi</groupId>
+            <artifactId>openapi-appex</artifactId>
+            <version>${mypocket-api.version}</version>
+        </dependency>
+
+        <!-- Antcloud SDK -->
+        <dependency>
+            <groupId>cn.com.antcloud.api</groupId>
+            <artifactId>antcloud-api-sdk</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.antcloud.api</groupId>
+            <artifactId>antcloud-api-baasdatagw</artifactId>
+            <version>${chaininsight-api.version}</version>
+        </dependency>
+
+        <!-- A-Pocket -->
+        <dependency>
+            <groupId>com.antgroup.antchain.openapi</groupId>
+            <artifactId>openapi-appex</artifactId>
+            <version>${mypocket-api.version}</version>
+        </dependency>
+
+        <!-- cache -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>${redisson.version}</version>
+        </dependency>
+
+        <!-- Aliyun -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+
+        <!-- Alipay -->
+        <!-- alipay open -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>${alipay-sdk.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+<!--        &lt;!&ndash; openchain &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.alipay.mychain.baas</groupId>-->
+<!--            <artifactId>openchain-lib</artifactId>-->
+<!--            <version>1.2.4-Security-SNAPSHOT</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>fastjson</artifactId>-->
+<!--                    <groupId>com.alibaba</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>lombok</artifactId>-->
+<!--                    <groupId>org.projectlombok</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>slf4j-api</artifactId>-->
+<!--                    <groupId>org.slf4j</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>antcloud-api-gotone</artifactId>-->
+<!--                    <groupId>cn.com.antcloud.api</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>antcloud-api-sdk</artifactId>-->
+<!--                    <groupId>cn.com.antcloud.api</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>commons-codec</artifactId>-->
+<!--                    <groupId>commons-codec</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>commons-lang</artifactId>-->
+<!--                    <groupId>commons-lang</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>commons-lang3</artifactId>-->
+<!--                    <groupId>org.apache.commons</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>guava</artifactId>-->
+<!--                    <groupId>com.google.guava</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>keytool</artifactId>-->
+<!--                    <groupId>com.antfinancial.antchain</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>spring-data-commons</artifactId>-->
+<!--                    <groupId>org.springframework.data</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

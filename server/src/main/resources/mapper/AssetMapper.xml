@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antgroup.antchain.xbuilders.dal.mapper.AssetMapper">
+    <resultMap id="BaseResultMap" type="com.antgroup.antchain.xbuilders.model.entity.Asset">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="chain_id" jdbcType="VARCHAR" property="chainId"/>
+        <result column="contract_id" jdbcType="VARCHAR" property="contractId"/>
+        <result column="contract_name" jdbcType="VARCHAR" property="contractName"/>
+        <result column="contract_type" jdbcType="VARCHAR" property="contractType"/>
+        <result column="sub_id" jdbcType="VARCHAR" property="subId"/>
+        <result column="exhibition" jdbcType="VARCHAR" property="exhibition"/>
+        <result column="asset_type" jdbcType="VARCHAR" property="assetType"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="group_id" jdbcType="VARCHAR" property="groupId"/>
+        <result column="0" jdbcType="INTEGER" property="redeemedAmount"/>
+        <result column="total_amount" jdbcType="INTEGER" property="totalAmount"/>
+        <result column="del_status" jdbcType="TINYINT" property="delStatus"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        , chain_id, contract_id, contract_name, contract_type, sub_id, exhibition, asset_type, name, group_id, redeemed_amount, total_amount, gmt_create, gmt_modified
+    </sql>
+
+    <!-- 根据group id获取组内所有asset -->
+    <select id="getAssetsByGroupId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM lab_dev_community_asset
+        WHERE group_id = #{groupId}
+    </select>
+
+    <!-- 获取所有asset -->
+    <select id="getAllAssets" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM lab_dev_community_asset
+        ORDER BY display_order
+    </select>
+
+    <!-- 根据group id查询一共有多少个资产 -->
+    <select id="countAssetsByGroupId" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM lab_dev_community_asset
+        WHERE group_id = #{groupId}
+    </select>
+
+    <!-- 根据资产id获取资产详情 -->
+    <select id="getAsset" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM lab_dev_community_asset
+        WHERE id = #{assetId}
+    </select>
+
+    <!-- 更新资产兑换数量 -->
+    <update id="increaseAssetRedeemAmount" parameterType="java.util.Map">
+        UPDATE lab_dev_community_asset
+        SET redeemed_amount = redeemed_amount + 1
+        WHERE id = #{assetId}
+          AND (total_amount = 0 or total_amount >= redeemed_amount)
+    </update>
+</mapper>

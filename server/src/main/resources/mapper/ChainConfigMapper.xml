@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antgroup.antchain.xbuilders.dal.mapper.ChainConfigMapper">
+    <resultMap id="BaseResultMap" type="com.antgroup.antchain.xbuilders.dal.entity.ChainConfig">
+        <id column="chain_id" jdbcType="VARCHAR" property="chainId"/>
+        <result column="chain_name" jdbcType="VARCHAR" property="chainName"/>
+        <result column="tenant" jdbcType="VARCHAR" property="tenant"/>
+        <result column="access_key" jdbcType="VARCHAR" property="accessKey"/>
+        <result column="access_secret" jdbcType="LONGVARCHAR" property="accessSecret"/>
+        <result column="admin_account_name" jdbcType="VARCHAR" property="adminAccountName"/>
+        <result column="admin_account_kms_id" jdbcType="VARCHAR" property="adminAccountKmsId"/>
+        <result column="chain_browser_url" jdbcType="VARCHAR" property="chainBrowserUrl"/>
+        <result column="del_status" jdbcType="TINYINT" property="delStatus"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        chain_id, chain_name, tenant, access_key, access_secret, admin_account_name, admin_account_kms_id, chain_browser_url, gmt_create, gmt_modified
+    </sql>
+
+    <!-- 根据group id查询资产group name-->
+    <select id="listAllChainConfigs" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM xbuilders_chain_config
+    </select>
+
+    <!-- 根据group id查询资产group name-->
+    <select id="getChainConfigByChainId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM xbuilders_chain_config
+        WHERE chain_id = #{chainId}
+    </select>
+</mapper>

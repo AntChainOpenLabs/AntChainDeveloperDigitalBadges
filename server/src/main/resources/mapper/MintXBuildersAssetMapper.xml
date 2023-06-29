@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antgroup.antchain.xbuilders.dal.mapper.MintXBuildersAssetMapper">
+    <resultMap id="BaseResultMap" type="com.antgroup.antchain.xbuilders.dal.entity.MintAssetOrder">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="meta_uri" jdbcType="VARCHAR" property="metaUri"/>
+        <result column="to_address" jdbcType="VARCHAR" property="toAddress"/>
+        <result column="tx_hash" jdbcType="VARCHAR" property="txHash"/>
+        <result column="asset_id" jdbcType="VARCHAR" property="assetId"/>
+        <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , gmt_create, meta_uri, to_address, tx_hash, asset_id, order_id, status
+    </sql>
+
+    <!-- 添加记录 -->
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.antgroup.antchain.xbuilders.dal.entity.MintAssetOrder"
+            useGeneratedKeys="true">
+        INSERT INTO web3_asset_mint
+            (gmt_create, meta_uri, to_address, tx_hash, asset_id, order_id, status)
+        VALUES (#{gmtCreate,jdbcType=TIMESTAMP}, #{metaUri,jdbcType=VARCHAR},
+                #{toAddress,jdbcType=VARCHAR}, #{txHash,jdbcType=VARCHAR}, #{assetId,jdbcType=VARCHAR},
+                #{orderId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="updateStatusAndHashByOrderId" parameterType="java.util.Map">
+        UPDATE web3_asset_mint
+        SET status  = #{newStatus},
+            tx_hash = #{txHash,jdbcType=VARCHAR}
+        WHERE order_id = #{orderId}
+          AND status = #{oldStatus}
+          AND tx_hash is null
+    </update>
+    <update id="updateStatusByOrderId" parameterType="java.util.Map">
+        UPDATE web3_asset_mint
+        SET status = #{newStatus}
+        WHERE order_id = #{orderId}
+          AND status = #{oldStatus}
+    </update>
+
+
+    <select id="getOrderByOrderId"
+            resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM web3_asset_mint
+        WHERE order_id = #{orderId}
+    </select>
+
+</mapper>
