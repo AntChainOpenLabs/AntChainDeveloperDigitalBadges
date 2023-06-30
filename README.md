@@ -71,6 +71,12 @@ mvn install:install-file -Dfile=jar包的位置 -DgroupId=com.antfinancial.antch
 - **部署合约**
 本应用中提供两个不同的数字头像合约实现， 所使用的合约语言均为Soldity语言,[蚂蚁链合约平台与原生 Solidity 具有不一样的特性](https://antchain.antgroup.com/docs/11/101909)。部署合约需要使用蚂蚁链合约工具[myfish](contracts/README.md)进行编译部署。两个合约不同之处在于， [index.sol](contracts/solidity/index.sol) 中设置了baseURI， 即所有数字藏品metadata URI均在此基础上进行递增。 而[indexCustomizedURI.sol](contracts/solidity/indexCustomizedURI.sol)合约可以为每一个数字藏品设置完全不同的URI，可定制程度更高。
 
+- **应用配置**
+1. 将申请好的区块链账号信息填入[xbuilders_chain_config](server/src/main/resources/data.sql)中， 需要填入`chain_id`,`chain_name`,`access_key`,`access_secret`,`admin_account_name`,`admin_account_kms_id`,`del_status`,`gmt_create`,`gmt_modified`,`tenant`,`chain_browser_url`等字段。
+2. 将部署好的合约信息填入[lab_dev_community_asset](server/src/main/resources/data.sql)中， 需要填入`id`, `group_id`, `chain_id`, `contract_id`, `contract_name`, `contract_type`, `sub_id`, `asset_type`, `name`, `redeemed_amount`, `total_amount` 等字段。
+3. 将数据库以及其他配置信息填入[application.properties](server/src/main/resources/application.properties)中
+
+
 
 - **启动应用**
 启动方式与传统spring-boot应用完全相同，在完成配置文件以及依赖安装后，运行如下命令
@@ -83,17 +89,19 @@ A-Pocket是蚂蚁链数字钱包，支持密钥托管，链上NFT资产展示，
 
 # 社区治理
 
-AntChain Bridge 欢迎您以任何形式参与社区建设。
+AntChain Developer Digital Badges 欢迎您以任何形式参与社区建设。
 
 您可以通过以下方式参与社区讨论
 
 - 钉钉
 
-![scan dingding](https://mdn.alipayobjects.com/huamei_7pldhj/afts/img/A*sjpaS6gIPFgAAAAAAAAAAAAADoaYAQ/original)
+<div align="left">
+	<img src="https://mdn.alipayobjects.com/huamei_3x8d2m/afts/img/A*t9hxRp0UHSMAAAAAAAAAAAAADjmWAQ/original" alt="Editor" width="200">
+</div>
 
 - 邮件
 
-发送邮件到`antchainbridge@service.alipay.com`
+发送邮件到`openlab.antchain@member.alibaba.com`
 
 # License
 
